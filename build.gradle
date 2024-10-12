@@ -1,0 +1,72 @@
+plugins {
+	id 'java'
+	id 'war'
+	id 'org.springframework.boot' version '3.2.10'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot Web starter
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// MyBatis starter
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+
+	// Tomcat 10 embed (JSP 처리 포함)
+	implementation 'org.apache.tomcat.embed:tomcat-embed-core:10.1.0'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.0'
+
+	// HTTP Client
+	implementation 'org.apache.httpcomponents.client5:httpclient5:5.1'
+
+	// Jackson Databind for JSON
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+
+	// Spring Data JPA starter
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Jakarta JSTL (Tomcat 10.x 대응)
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Spring Boot DevTools for development
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// MySQL Connector
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	// Provided Tomcat (Tomcat 10.x 사용)
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	providedCompile 'jakarta.servlet:jakarta.servlet-api:5.0.0'
+
+	// Test dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
